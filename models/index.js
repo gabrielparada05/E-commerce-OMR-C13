@@ -6,33 +6,56 @@ const ProductTag = require('./ProductTag');
 
 // Products belongsTo Category
 
-Category.hasOne(Product, {
-  foreignKey: 'category_id',
-  onDelete: 'CASCADE',
-});
+// Product.belongsTo(Category, {
+//   through: {
+//     model: Category,
+//     unique: false
+//   },
+//   // Define an alias for when data is retrieved
+//   as: 'planned_trips'
+// });
 
+// Product.belongsToMany(Traveller, {
+//   // Define the third table needed to store the foreign keys
+//   through: {
+//     model: Trip,
+//     unique: false
+//   },
+//   // Define an alias for when data is retrieved
+//   as: 'location_travellers'
+// });
 
 Product.belongsTo(Category, {
   foreignKey: 'category_id',
+  onDelete: 'CASCADE',
+  onUpdate:'CASCADE'
 });
 
 
-// A reader can have many books
-Product.hasOne(ProductTag, {
-  foreignKey: 'product_id',
+Category.hasMany(Product, {
+  foreignKey: 'category_id',
+  onDelete: 'CASCADE',
+  onUpdate:'CASCADE'
 });
 
-ProductTag.belongsTo(Product, {
-  foreignKey: 'product_id',
-})
 
-Tag.hasOne(ProductTag, {
-  foreignKey: 'tag_id',
+Product.belongsToMany(Tag, {
+  through: {
+    model: ProductTag,
+    unique: false
+  },
+  as: 'product_tag'
 });
 
-ProductTag.belongsTo(Tag, {
-  foreignKey: 'tag_id',
+Tag.belongsToMany(Product, {
+  through: {
+    model: ProductTag,
+    unique: false
+  },
+  as: 'tag_2'
 });
+
+
 
 
 

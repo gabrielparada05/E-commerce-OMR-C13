@@ -16,15 +16,7 @@ Category.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-  
-    // // Store a reference of the `id` of the `Reader` that owns this Book
-    // reader_id: {
-    //   type: DataTypes.INTEGER,
-    //   references: {
-    //     model: 'reader',
-    //     key: 'id',
-    //   },
-    // },
+
   },
   {
     sequelize,
