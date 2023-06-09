@@ -44,15 +44,14 @@ Product.belongsToMany(Tag, {
     model: ProductTag,
     unique: false
   },
-  as: 'product_tag'
+  as: 'tags'
 });
 
 Tag.belongsToMany(Product, {
   through: {
     model: ProductTag,
-    unique: false
   },
-  as: 'tag_2'
+  as: 'products'
 });
 
 
