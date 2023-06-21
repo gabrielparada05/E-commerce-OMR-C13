@@ -24,7 +24,7 @@ The code above appears to be a set of routes and functions for a backend server 
 To start with this app, users must have a database set up and configured with Sequelize. They would also need to install the necessary dependencies by running npm install in the project directory. Once the dependencies are installed, users can start the server by running npm start or node server.js. The server will listen on a specified port, which can be accessed through a web browser or an API client like Postman. Users can then request various endpoints to create, read, update, or delete data in the database. It's important to note that this app is only a backend server and does not include a frontend interface for users to interact with. Users must build their front end or use a third-party tool to interact with the server's API.
 
 ## Walkthrough Video
-A video is available https://drive.google.com/file/d/1wffKZ2m93qhUi1HujSdwUsv0CLIIL6gq/view or scan ![VideoQRCode](./assets/qr-code%20(2).png)
+A video is available https://drive.google.com/file/d/1szaBdw8LfCRaGBmY1pdSZYJvNVFW9nou/view or scan ![VideoQRCode](./assets/qr-code.png.png)
 
 
 ## Usage
