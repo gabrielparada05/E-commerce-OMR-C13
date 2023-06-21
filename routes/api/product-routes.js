@@ -48,54 +48,91 @@ router.get('/:id', async (req, res) => {
 });
 
 
+// router.post('/', async (req, res) => {
+//   /* req.body should look like this...
+//     {
+//       product_name: "Basketball",
+//       price: 200.00,
+//       stock: 3,
+//       tagIds: [1, 2, 3, 4]
+//     }
+//   */
+//   try {
+//     const productData = await Product.create({
+//       product_name: req.body.product_name,
+//       price: req.body.price,
+//       stock: req.body.stock,
+//       category_id: req.body.category_id,
+//       tagIds: req.body.tagIds,
+//     });
+
+//     if (req.body.tagIds.length) {
+//       const productTagIdArr = req.body.tagIds.map((tag_id) => {
+//         return {
+//           product_id: productData.id,
+//           tag_id,
+//         };
+//       });
+
+//       await ProductTag.bulkCreate(productTagIdArr);
+//     } else {
+//       // No product tags, just respond with the created product
+//       res.status(200).json(productData);
+//     }
+//   } catch (err) {
+//     console.log(err);
+//     res.status(400).json(err);
+//   }
+// });
 
  
 
 // create new product
 router.post('/', async (req, res) => {
-  /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
+  if (req.body.tagIds) {
     try {
       const productData = await Product.create({
         product_name: req.body.product_name,
         price: req.body.price,
         stock: req.body.stock,
         category_id: req.body.category_id,
-        tagIds:req.body.tagIds,
+        tagIds: req.body.tagIds,
       });
-      res.status(200).json(productData);
-    } catch (err) {
-      res.status(400).json(err);
-    }
- 
-  Product.create(req.body)
-    .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+
       if (req.body.tagIds.length) {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
-            product_id: product.id,
+            product_id: productData.id,
             tag_id,
           };
         });
-        return ProductTag.bulkCreate(productTagIdArr);
+
+        await ProductTag.bulkCreate(productTagIdArr);
       }
-      // if no product tags, just respond
-      res.status(200).json(product);
-    })
-    .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
+
+      res.status(200).json(productData);
+    } catch (err) {
       console.log(err);
       res.status(400).json(err);
-    });
+    }
+  } else {
+    try {
+      const productData = await Product.create({
+        product_name: req.body.product_name,
+        price: req.body.price,
+        stock: req.body.stock,
+        category_id: req.body.category_id,
+      });
 
- });
+      res.status(200).json(productData);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json(err);
+    }
+  }
+});
+
+ 
 // update product
 router.put('/:id', (req, res) => {
   // update product data
